@@ -1,54 +1,43 @@
 import * as THREE from "./assets/vendor/three/three.module.js";
 
+const $ = selector => document.querySelector(selector);
 const root = document.querySelector("#model-canvas");
 const fallback = document.querySelector("#model-fallback");
+const fallbackImage = document.querySelector("#model-fallback-image");
 const picker = document.querySelector("#experience-picker");
 const scale = document.querySelector("#model-scale");
 const objectName = document.querySelector("#model-object-name");
 const objectCopy = document.querySelector("#model-object-copy");
-const referencePhoto = document.querySelector("#model-reference-photo");
-const fallbackImage = document.querySelector("#model-fallback-image");
-const referenceCaption = document.querySelector("#model-reference-caption");
 const MODEL_CONTENT = {
   cathedral: {
     title: "Спасо-Преображенский собор",
-    note: "Условный образ православного соборного здания. Не является проектной или исторической реконструкцией конкретного собора.",
+    note: "Схематическая форма православного собора, не точная реконструкция здания.",
     photo: "./assets/cathedral-current.webp",
-    fallback: "./assets/cathedral-current.webp",
-    alt: "Современная фотография Спасо-Преображенского собора",
-    caption: "Современный воссозданный собор · фото и подпись в карточке маршрута."
+    alt: "Воссозданный Спасо-Преображенский собор Твери"
   },
   otroch: {
     title: "Успенский собор Отроча",
-    note: "Силуэтная схема типа православного храма. Она не воспроизводит точные обмеры сохранившегося Успенского собора.",
+    note: "Схема типа православного храма, не точная реконструкция собора.",
     photo: "./assets/otroch-current.webp",
-    fallback: "./assets/otroch-current.webp",
-    alt: "Современная фотография сохранившегося Успенского собора Отроча",
-    caption: "Сохранившийся собор · точный силуэт см. в фотоисточнике."
+    alt: "Сохранившийся Успенский собор бывшего Отроч монастыря"
   },
   zheltikov: {
     title: "Жёлтиков монастырь",
-    note: "Схема монастырского ансамбля как группы объёмов; она не показывает доказанное расположение утраченных исторических корпусов.",
+    note: "Схема ансамбля не показывает доказанное расположение всех исторических корпусов.",
     photo: "./assets/zheltikov-current.webp",
-    fallback: "./assets/zheltikov-current.webp",
-    alt: "Современная фотография Святых врат Желтикова монастыря",
-    caption: "Современное состояние территории · отдельные строения сохранились."
+    alt: "Святые врата Жёлтикова монастыря"
   },
   catholic: {
     title: "Католический храм",
-    note: "Объёмная схема современного храмового типа, не точная модель тверского здания и не реконструкция исторического костёла.",
+    note: "Схематическая форма храма, не точная модель здания в Твери.",
     photo: "./assets/catholic-current.webp",
-    fallback: "./assets/catholic-current.webp",
-    alt: "Современная фотография католического храма Преображения Господня",
-    caption: "Современное здание прихода · фото и адрес указаны в карточке."
+    alt: "Католический храм Преображения Господня в Твери"
   },
   mosque: {
     title: "Тверская соборная мечеть",
-    note: "Схематический объём мечети с минаретом; это не обмерная 3D-модель здания и не архитектурная реставрация.",
+    note: "Схематическая форма мечети, не обмерная модель здания.",
     photo: "./assets/mosque-current.webp",
-    fallback: "./assets/mosque-current.webp",
-    alt: "Современная фотография Тверской соборной мечети",
-    caption: "Фотография сохранившегося здания · подпись и источник в карточке."
+    alt: "Тверская соборная мечеть"
   }
 };
 
@@ -57,15 +46,9 @@ function material(color, roughness = .8) {
 }
 
 const mat = {
-  cream: material("#f2f5f9"),
-  white: material("#ffffff"),
-  blue: material("#245ce7"),
-  red: material("#ef705d"),
-  gold: material("#f0bc4b", .5),
-  roof: material("#415c80"),
-  brick: material("#ca7767"),
-  green: material("#537c82"),
-  dark: material("#26364e"),
+  cream: material("#f2f5f9"), white: material("#ffffff"), blue: material("#245ce7"),
+  red: material("#ef705d"), gold: material("#f0bc4b", .5), roof: material("#415c80"),
+  brick: material("#ca7767"), green: material("#537c82"), dark: material("#26364e"),
   line: material("#cad5e4")
 };
 
@@ -170,9 +153,7 @@ function createMonastery() {
   box(building, [1.28, .22, 1.43], [1.25, 4.95, -1.55], mat.red);
   cylinder(building, .52, .6, .34, [1.25, 5.24, -1.55], mat.white);
   dome(building, [1.25, 5.7, -1.55], mat.gold, .5);
-  for (const x of [-2.1, -1.15, -.2, 1.1, 2.1]) {
-    box(building, [.11, .65, .08], [x, 1.45, 1.18], mat.blue);
-  }
+  for (const x of [-2.1, -1.15, -.2, 1.1, 2.1]) box(building, [.11, .65, .08], [x, 1.45, 1.18], mat.blue);
   box(building, [6.8, .6, .35], [0, .55, 2.4], mat.red);
 }
 
@@ -187,9 +168,7 @@ function createCatholic() {
   const spire = addMesh(building, new THREE.ConeGeometry(.62, 1.2, 4), mat.roof, [-2.15, 6.06, .75]);
   spire.rotation.y = Math.PI / 4;
   cross(building, [-2.15, 6.98, .75], mat.gold, .78);
-  for (const x of [-1.3, -.4, .5, 1.4]) {
-    box(building, [.2, 1.15, .12], [x, 1.63, 1.25], mat.cream);
-  }
+  for (const x of [-1.3, -.4, .5, 1.4]) box(building, [.2, 1.15, .12], [x, 1.63, 1.25], mat.cream);
   box(building, [1.15, 1.9, .15], [.35, 1.3, 1.27], mat.dark);
 }
 
@@ -225,29 +204,13 @@ function buildFor(type) {
 }
 
 function updateModel(type) {
-  const info = MODEL_CONTENT[type] || MODEL_CONTENT.cathedral;
+  const info = MODEL_CONTENT[type] || MODEL_CONTENT.otroch;
   objectName.textContent = info.title;
   objectCopy.textContent = info.note;
-  referencePhoto.src = info.photo;
-  referencePhoto.dataset.fallback = info.fallback;
-  referencePhoto.dataset.fallbackUsed = "false";
-  referencePhoto.alt = info.alt;
   fallbackImage.src = info.photo;
-  fallbackImage.dataset.fallback = info.fallback;
-  fallbackImage.dataset.fallbackUsed = "false";
   fallbackImage.alt = info.alt;
-  referenceCaption.textContent = info.caption;
-  attachFallback(referencePhoto);
-  attachFallback(fallbackImage);
+  fallbackImage.dataset.fallbackUsed = "false";
   buildFor(type);
-}
-
-function attachFallback(image) {
-  image.addEventListener("error", () => {
-    if (image.dataset.fallbackUsed === "true") return;
-    image.dataset.fallbackUsed = "true";
-    image.src = image.dataset.fallback;
-  }, { once: true });
 }
 
 function resize() {
@@ -268,8 +231,8 @@ try {
     if (event.detail?.id) updateModel(event.detail.id);
   });
   scale.addEventListener("input", () => { building.scale.setScalar(Number(scale.value)); });
-  document.querySelector("#model-left").addEventListener("click", () => { rotationY -= .38; building.rotation.y = rotationY; });
-  document.querySelector("#model-right").addEventListener("click", () => { rotationY += .38; building.rotation.y = rotationY; });
+  $("#model-left").addEventListener("click", () => { rotationY -= .38; building.rotation.y = rotationY; });
+  $("#model-right").addEventListener("click", () => { rotationY += .38; building.rotation.y = rotationY; });
   renderer.domElement.addEventListener("pointerdown", event => {
     dragging = true;
     previousX = event.clientX;
@@ -288,7 +251,7 @@ try {
   });
   renderer.domElement.addEventListener("pointerup", () => { dragging = false; });
   renderer.domElement.addEventListener("pointercancel", () => { dragging = false; });
-  updateModel(picker?.value || "otroch");
+  updateModel(window.__selectedPlaceId || picker?.value || "otroch");
   fallback.hidden = true;
   const clock = new THREE.Clock();
   function animate() {
@@ -306,11 +269,6 @@ try {
   fallback.hidden = false;
   const message = document.createElement("div");
   message.className = "model-failure";
-  message.textContent = "3D-просмотр недоступен на этом устройстве. Фотография объекта показана ниже.";
+  message.textContent = "3D-просмотр недоступен на этом устройстве. Фотография места показана здесь.";
   root.appendChild(message);
 }
-
-function attachFallbackImages() {
-  [referencePhoto, fallbackImage].forEach(attachFallback);
-}
-attachFallbackImages();

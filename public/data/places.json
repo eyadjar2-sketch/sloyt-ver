@@ -46,7 +46,8 @@
         "url": "http://www.tversvod.ru/page7/?full=1"
       }
     ],
-    "priority": "main"
+    "priority": "main",
+    "mapIcon": "otroch"
   },
   {
     "id": "zheltikov",
@@ -99,7 +100,8 @@
         "url": "http://tversvod.ru/page447/?full=1"
       }
     ],
-    "priority": "main"
+    "priority": "main",
+    "mapIcon": "zheltikov"
   },
   {
     "id": "cathedral",
@@ -146,7 +148,8 @@
         "url": "https://tp.tver.ru/na-kolokolne-spaso-preobrazhenskogo-kafedralnogo-sobora-v-tveri-ustanovleny-kupol-i-krest/"
       }
     ],
-    "priority": "main"
+    "priority": "main",
+    "mapIcon": "cathedral"
   },
   {
     "id": "catholic",
@@ -189,7 +192,8 @@
         "url": "https://welcometver.ru/places/rimsko-katolicheskiy-prikhod-preobrazheniya-gospodnego/"
       }
     ],
-    "priority": "additional"
+    "priority": "additional",
+    "mapIcon": "catholic"
   },
   {
     "id": "mosque",
@@ -232,6 +236,7 @@
         "url": "https://go-tver.ru/article/29-tverskaya-sobornaya-mechet"
       }
     ],
-    "priority": "additional"
+    "priority": "additional",
+    "mapIcon": "mosque"
   }
 ]
