@@ -20,7 +20,6 @@
 
 Обычная статическая страница: HTML, CSS, JSON и JavaScript, без сервера, базы данных или секретов. `public/index.html` задаёт единственную страницу; `public/styles.css` и `public/atlas.css` — каркас и тему; `public/main.js` загружает коллекцию, строит MapLibre map/source/layers, иконки, кластеры и панель выбранного места, а также управляет сортировкой; `public/model.js` создаёт схемы на локальной Three.js; `public/data/places.json` — расширяемый каталог. Фото и логотип хранятся локально. Векторный style/tiles и Google Fonts требуют интернет-соединения.
 
-`.github/workflows/pages.yml` публикует статический каталог `public/` на GitHub Pages. ZIP включает workflow, `.gitignore`, `.nojekyll`, README, описание проекта с речью для защиты, активы и лицензии; относительные пути должны работать в подпапке репозитория. `public/manus-routes.json` остаётся синхронизирован с единственной страницей.
 
 ## Структура проекта
 
